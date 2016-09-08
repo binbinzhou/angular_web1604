@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>指令3-添加题目</title>
+    <title>数据的双向绑定与单向绑定</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",function($scope){
+            $scope.data = {
+                type:"radio"
+            };
+            $scope.submitSave = function () {
+
+                //return false;
+                console.log($scope.data)
+                alert(1);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div ng-controller="oneCtrl">
+        <form action="saveSubject.action" ng-submit="submitSave()">
+            <h1>添加题目</h1>
+            <hr>
+            题目类型：
+            <select ng-model="data.type">
+                <option value="radio">单选题</option>
+                <option value="check">多选题</option>
+                <option value="question">简答题</option>
+            </select>
+            <hr>
+            题目题干：
+            <textarea ng-model="data.title" cols="60" rows="3"></textarea>
+            <hr>
+            <div ng-show="data.type=='radio'">
+                选项A：<input ng-model="data.radio" type="radio" name="choice" value="A">
+                <textarea cols="50" ng-model="data.choiceA" rows="1"></textarea><br>
+                选项B：<input ng-model="data.radio" type="radio" name="choice" value="B">
+                <textarea name="" ng-model="data.choiceB" cols="50" rows="1"></textarea><br>
+                选项C：<input ng-model="data.radio" type="radio" name="choice" value="C">
+                <textarea name="" ng-model="data.choiceC" cols="50" rows="1"></textarea><br>
+                选项D：<input ng-model="data.radio" type="radio" name="choice" value="D">
+                <textarea name="" ng-model="data.choiceD" cols="50" rows="1"></textarea><br>
+            </div>
+            <div ng-show="data.type == 'check'">
+                选项A：<input type="checkbox" name="choice" value="A">
+                <textarea name="" cols="50" rows="1"></textarea><br>
+                选项B：<input type="checkbox" name="choice" value="B">
+                <textarea name="" cols="50" rows="1"></textarea><br>
+                选项C：<input type="checkbox" name="choice" value="C">
+                <textarea name="" cols="50" rows="1"></textarea><br>
+                选项D：<input type="checkbox" name="choice" value="D">
+                <textarea name="" cols="50" rows="1"></textarea><br>
+            </div>
+            <div ng-show="data.type == 'question'">
+                答案：<textarea name="" id="" cols="55" rows="3"></textarea>
+            </div>
+            <hr>
+            <div>
+                <input type="submit" value="提交保存">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

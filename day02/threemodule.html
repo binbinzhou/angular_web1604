@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS</title>
+    <style>
+        .trbg{
+            background-color: #c0c0c0;
+        }
+    </style>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        //创建模块
+        var app = angular.module("app",[]);
+
+        //三层架构中的web层也就是视图层，视图层又分为1控制器ng-controller，2数据模型$scope，3指令ng-..
+        //创建控制器
+        app.controller("oneCtrl",function($scope,studentService){
+            $scope.stus = studentService.getStudent();
+            $scope.service=studentService;
+        });
+        app.controller("twoCtrl",function ($scope,studentService) {
+            $scope.stus = studentService.getStudent();
+        })
+
+        //创建学生管理的服务,封装起来可以供多个控制器使用
+        app.service("studentService",function () {
+            //返回的是一个对象
+            return {
+                student:[{
+                    "id":1001,
+                    "name":"terry",
+                    "age":12,
+                    "gender":"male"
+                },{
+                    "id":1002,
+                    "name":"tom",
+                    "age":13,
+                    "gender":"male"
+                },{
+                    "id":1003,
+                    "name":"larry",
+                    "age":14,
+                    "gender":"male"
+                }],
+                getStudent:function () {
+                    return this.student;
+                },
+                //添加学生的方法
+                addStudent:function () {
+                    this.student.push({
+                        "id":2001,
+                        "name":"binbin",
+                        "age":23,
+                        "gender":"男"
+                    });
+                },
+                //删除学生的方法
+                delStudent:function(){
+                    this.student.shift();
+                }
+            };
+        });
+
+    </script>
+</head>
+<body>
+<h3>第一个控制器</h3>
+<div ng-controller="oneCtrl">
+    <button ng-click="service.addStudent()">添加</button>
+    <button ng-click="service.delStudent()">删除</button>
+    <table width="400px" border="1px" cellspacing="0">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="stu in stus" class="{{$even?'trbg':''}}"> <!--首先判断是否是偶数行，是的话就加一个属性，反之-->
+            <td>{{$index+1}}</td>
+            <td>{{stu.id}}</td>
+            <td>{{stu.name}}</td>
+            <td>{{stu.age}}</td>
+            <td>{{stu.gender}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<hr>
+<h3>第二个控制器</h3>
+<div ng-controller="twoCtrl">
+    <table width="400px" border="1px" cellspacing="0">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="stu in stus" class="{{$even?'trbg':''}}"> <!--首先判断是否是偶数行，是的话就加一个属性，反之-->
+            <td ng-bind="$index+1"></td>
+            <td ng-bind="stu.id"></td>
+            <td ng-bind="stu.name"></td>
+            <td ng-bind="stu.age"></td>
+            <td ng-bind="stu.gender"></td>
+            <!--
+            用ng-bind=""好和使用大括号功能是一样的，区别是：使用大括号时，如果遇到网速慢或者没有成功导入angularjs库html中
+            的{{}}就不会被解析，直接显示{{}}，这种效果是不应该让用户看到的，而ng-bind=""就能解决这个问题，加载的时候是看
+            不到大括号的-->
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

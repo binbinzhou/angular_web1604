@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>数据的双向绑定与单向绑定</title>
+    <style>
+        .trbg{
+            background-color: #2a6496;
+        }
+    </style>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script src="../frameworks/angular-1.4.0/angular-sanitize.min.js"></script>
+    <script>
+        var app = angular.module("app",["ngSanitize"]);//导入一个解析html片段的Sanitize库，并且写在模型里面，
+
+        app.controller("oneCtrl",function ($scope) {
+            //$scope.msg="hello";
+            //也可以直接在双引号里面嵌入html片段
+            $scope.msg = "<b class='trbg'>hello</b>";
+
+        });
+        //ng-model只适用于表单中，表示双向绑定数据
+    </script>
+</head>
+<body>
+<div ng-controller="oneCtrl">
+    <h1>单向与双向数据绑定--ng-model="msg"/value="{{}}"</h1>
+    <h2>用一些指令进行数据绑定，ng-bind="msg"/直接在标签内部嵌入{{}}/ng-bind-html="msg"</h2>
+    <div>
+        双向：<input type="text" ng-model="msg"><br>
+        单向：<input type="text" value="{{msg}}"><br>
+        单向1：<span ng-bind="msg"></span><br>
+        单向2：<span>{{msg}}</span><br>
+        html：<span ng-bind-html="msg"></span><br>
+        template1:<span ng-bind-template="msg"></span><br>  <!--template的意思是模板，不加大括号就按原样输出-->
+        template2:<span ng-bind-template="{{msg}}"></span><br>  <!--加大括号之后会被解析为变量输出-->
+        数据：{{msg}}
+
+    </div>
+</div>
+
+</body>
+</html>

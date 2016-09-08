@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>指令1-星期判断</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",function ($scope) {
+            //$scope.number=2;
+            //这里的默认值可以不写
+        })
+
+    </script>
+</head>
+<body>
+<div ng-controller="oneCtrl">
+    <h1>这是一个星期判断</h1>
+    请输入1-7的数字number:<input type="text" ng-model="number"><!--ng-model实现数据向绑定-->
+    <br>
+    <ul ng-switch="number">
+        <li ng-switch-when="1">怎么又是星期一啊</li>
+        <li ng-switch-when="2">星期二</li>
+        <li ng-switch-when="3">星期三</li>
+        <li ng-switch-when="4">星期四</li>
+        <li ng-switch-when="5">星期五</li>
+        <li ng-switch-when="6">今天是星期六</li>
+        <li ng-switch-when="7">今天是星期七</li>
+        <li ng-switch-default>未输入数字</li>
+    </ul>
+</div>
+
+</body>
+</html>
