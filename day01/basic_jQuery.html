@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>basic_jQuery</title>
+    <script src="../frameworks/jquery-2.1.4/jquery.min.js"></script>
+    <script>
+        jQuery(document).ready(function(){
+            var text = "hello jquery";
+            $("h1").text(text);
+            var person;     //这里的全局声明是为了让检测按钮也能访问到表单提交中的方法中的person对象
+            //检测按钮绑定事件，当用户输入的数据打印在控制台之后，再对表单中的数据进行更改，
+            // 再将数据打印在控制台，其结果是不发生变化的，是因为jQuery是单向绑定的，当用户修改数据之后
+            // 需要再向后台重新请求更新后的数据，这就大大增加工作量，而angular JS是双向绑定的，
+            $("input:button").click(function(){
+                console.log(person);
+            });
+
+            $("form").off("submit")
+            $("form").on("submit",function(){
+                var name =$("input[name='name']").val();
+                var age =$("input[name='age']").val();
+                var gender =$("input[name='gender']").val();
+                person= {
+                    name:name,
+                    age:age,
+                    gender:gender
+                };
+                console.log(person);
+                //阻止表单默认行为
+                return false;
+            });
+
+            //封装获取信息的ajax
+            function loadData(){
+                $.getJSON("data/stus.json",function(data){
+                    //打印是否获取到数据
+                    console.log(data);
+                    $("tbody").children(":not(:first)").remove();
+                    data.forEach(function(item){
+                        var newTr = $("<tr><td>"+item.id+"</td><td>"+item.name+"</td><td>"+item.age+"</td><td>"+item.gender+"</td></tr>");
+                        $("tbody").append(newTr);
+                    });
+                });
+            }
+            loadData()
+        });
+    </script>
+</head>
+<body>
+<h1></h1>
+<div>
+    <table width="400px" border="1px" cellspacing="0">
+        <thead>
+        <tr>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+
+    </table>
+
+</div>
+<div>
+    <form action="register.action">
+        姓名：<input type="text" name="name">
+        <hr>
+        年龄：<input type="text" name="age">
+        <hr>
+        性别：<input type="text" name="gender">
+        <hr>
+        <input type="button" value="检测person">
+        <input type="submit">
+    </form>
+</div>
+</body>
+</html>
