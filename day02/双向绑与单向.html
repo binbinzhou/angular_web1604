@@ -16,7 +16,12 @@
         app.controller("oneCtrl",function ($scope) {
             //$scope.msg="hello";
             //也可以直接在双引号里面嵌入html片段
-            $scope.msg = "<b class='trbg'>hello</b>";
+            //$scope.msg = "<b class='trbg'>hello</b>";
+            //$scope.txt = "<u onclick = "alert(1)"></u>";
+            $scope.data={
+                msg:"<b class='trbg'>hello</b>",
+                txt:"<u onclick = 'alert(1)'>点击</u>"
+            }
 
         });
         //ng-model只适用于表单中，表示双向绑定数据
@@ -27,14 +32,14 @@
     <h1>单向与双向数据绑定--ng-model="msg"/value="{{}}"</h1>
     <h2>用一些指令进行数据绑定，ng-bind="msg"/直接在标签内部嵌入{{}}/ng-bind-html="msg"</h2>
     <div>
-        双向：<input type="text" ng-model="msg"><br>
-        单向：<input type="text" value="{{msg}}"><br>
-        单向1：<span ng-bind="msg"></span><br>
-        单向2：<span>{{msg}}</span><br>
-        html：<span ng-bind-html="msg"></span><br>
-        template1:<span ng-bind-template="msg"></span><br>  <!--template的意思是模板，不加大括号就按原样输出-->
-        template2:<span ng-bind-template="{{msg}}"></span><br>  <!--加大括号之后会被解析为变量输出-->
-        数据：{{msg}}
+        双向：<input type="text" ng-model="data.msg"><br>
+        单向：<input type="text" value="{{data.msg}}"><br>
+        单向1：<span ng-bind="data.msg"></span><br>
+        单向2：<span>{{data.msg}}</span><br>
+        html：<span ng-bind-html="data.msg"></span><br>
+        template1:<span ng-bind-template="data.msg"></span><br>  <!--template的意思是模板，不加大括号就按原样输出-->
+        template2:<span ng-bind-template="{{data.msg}},{{data.txt}}"></span><br>  <!--加大括号之后会被解析为变量输出-->
+        数据：{{data.msg}}
 
     </div>
 </div>

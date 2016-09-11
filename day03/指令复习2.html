@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>指令复习2</title>
+    <style>
+        table{
+            width:300px;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        td{
+            border:1px solid #ccc;
+        }
+    </style>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script src="../frameworks/angular-1.4.0/angular-sanitize.min.js"></script>
+    <script>
+        //创建模型
+        var app = angular.module("app",["ngSanitize"]);
+        //创建控制器
+        app.controller("oneCtrl",function ($scope) {
+            $scope.firstnum=1111;
+            $scope.secondnum=2222;
+        });
+        //创建指令
+        app.directive("firstDt",function () {
+            //alert("显示body中旧的数据");   //在这里能看到原有的数据，原因是底下的代码还未解析，只有解析到指令的时候才会解析这个函数，
+                                            // 这个时候自定义指令原有的数据会被清空，再将模板的内容添加上去
+            return {
+                restrict:"E",
+                transclude:true,     //表示允许原有的内容插入
+                //<ng-transclude></ng-transclude>代表指令标签内部的内容，把指令标签内部的内容插入到模板中的u标签当中
+                //scope:{},   //完全隔离
+                scope:{
+                    secondnum:"@"
+                },
+                template:"<div><u style='color: red'><ng-transclude></ng-transclude></u>firstDt:{{firstnum}}<br>改变firstnum的值<input type='text' ng-model='firstnum'><br>改变secondnum的值<input type='text' ng-model='secondnum'><br>secondnum:{{secondnum}}</div>"
+            };
+        });
+        //alert("解析开始，解析到指令的时候才会解析自定义指令中的函数");    //这个警告框先弹出！！
+    </script>
+</head>
+<body ng-controller="oneCtrl">
+外部修改firstnum的值：<input type="text" ng-model="firstnum"><br>
+外部访问firstnum的值：{{firstnum}}<br>
+外部修改secondnum的值：<input type="text" ng-model="secondnum"><br>
+外部访问secondnum的值：{{secondnum}}
+<hr>
+<first-dt secondnum="{{secondnum}}">这是原有的内容</first-dt>
+<first-dt>老内容</first-dt>
+<first-dt>
+    <table>
+        <tbody>
+        <tr>
+            <td>学号</td>
+            <td>姓名</td>
+            <td>班级</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+</first-dt>
+</body>
+</html>

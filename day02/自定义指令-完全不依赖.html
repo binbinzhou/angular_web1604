@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义指令-完全不依赖</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script src="../frameworks/angular-1.4.0/angular-sanitize.min.js"></script>
+    <script>
+        //创建模块
+        var app = angular.module("app",["ngSanitize"]);
+        //创建控制器
+        app.controller("oneCtrl",function ($scope) {
+            $scope.msg="oneCtrl's value";
+        });
+        //创建自定义指令
+        app.directive("firstDt",function () {
+            return {
+                restrict:"AE",
+                //1、完全依赖，双向数据绑定，不写自己的作用域，自定义指令中的变量就会去找外部的变量
+
+                //2、完全不依赖
+                //scope:{},     //当scope:{}大括号内什么都不写的时候自定义指令只能访问自身指令的作用域，完全不依赖也就是说访问不到控制器里边的作用域
+                //scope:{msg:"23"}, //这个时候会报错，大括号里面不能为一个固定值！！！
+
+                //scope:{msg:"@"} 隔离作用域，自定义指令只能访问自己的作用域，而外面的也只能访问外面的作用域！！
+                scope:{
+                    msg:"@"     //这里艾特的是他自定义指令中的属性msg,相当于 msg == @(msg)属性中的msg
+                },
+
+                //3、部分依赖，内部依赖外部，外部不依赖内部
+                    //改变自定义指令标枪中属性的值，让值成为外部作用域的变量，也就是{{msg}}
+                template:"<h2>hello world 自定义标签的msg {{msg}}</h2><input type='text' ng-model='msg'>"
+            }
+        });
+
+
+
+    </script>
+</head>
+<body>
+<div ng-controller="oneCtrl">
+    <h2>自定义指令</h2>
+    内部访问：作为元素标签：<first-dt msg="自定义本身的属性10000"></first-dt><hr>
+    外部访问：{{msg}}<br>
+    <input type="text" ng-model="msg">
+</div>
+
+</body>
+</html>

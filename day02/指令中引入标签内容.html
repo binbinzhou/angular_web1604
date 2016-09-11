@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>指令中引入标签内容</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script src="../frameworks/angular-1.4.0/angular-sanitize.min.js"></script>
+    <script>
+        var app = angular.module("app",["ngSanitize"]);
+        app.controller("oneCtrl",function ($scope) {
+            $scope.author = "Leslie";
+            $scope.title_ = "《指令中引入标签内容》";
+
+        });
+        app.directive("myDialog",function () {
+            return {
+                restrict:"AE",
+                transclude:true,
+                scope:{
+                    title:"@"
+                },
+                templateUrl:"data/ng-transclude.html"
+            }
+        })
+
+    </script>
+</head>
+<body>
+<div ng-controller="oneCtrl">
+    <h4>作者:{{author}}</h4>
+    <my-dialog title="标题是: {{title_}}">我是文档内容：transclude:true表示嵌入的意思，
+        ng-transclude指明的是一个插入的位置；指令中标签里的元素都会先删除然后被嵌入包含后的内容所替换
+    </my-dialog>
+</div>
+
+</body>
+</html>

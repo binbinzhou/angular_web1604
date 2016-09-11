@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>指令复习1</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script src="../frameworks/angular-1.4.0/angular-sanitize.min.js"></script>
+    <script>
+        //创建模块
+        var app = angular.module("app",["ngSanitize"]);
+        //控制器
+        app.controller("oneCtrl",function ($scope) {
+            $scope.num = 111;
+        });
+        //自定义指令
+        app.directive("firstDt",function () {
+            alert("显示body中旧的数据");
+            return {
+                restrict:"E",
+                template:"<h1>firstDt{{num}}</h1>"
+            };
+        });
+        alert("解析开始，解析到指令的时候才会解析自定义指令中的函数");
+
+    </script>
+</head>
+<body ng-controller="oneCtrl">
+<first-dt>old content</first-dt>
+
+</body>
+</html>

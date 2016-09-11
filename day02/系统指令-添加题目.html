@@ -22,6 +22,7 @@
 </head>
 <body>
     <div ng-controller="oneCtrl">
+        {{data}}
         <form action="saveSubject.action" ng-submit="submitSave()">
             <h1>添加题目</h1>
             <hr>
@@ -33,30 +34,30 @@
             </select>
             <hr>
             题目题干：
-            <textarea ng-model="data.title" cols="60" rows="3"></textarea>
+            <textarea cols="60" rows="3"></textarea>
             <hr>
             <div ng-show="data.type=='radio'">
                 选项A：<input ng-model="data.radio" type="radio" name="choice" value="A">
                 <textarea cols="50" ng-model="data.choiceA" rows="1"></textarea><br>
                 选项B：<input ng-model="data.radio" type="radio" name="choice" value="B">
-                <textarea name="" ng-model="data.choiceB" cols="50" rows="1"></textarea><br>
+                <textarea ng-model="data.choiceB" cols="50" rows="1"></textarea><br>
                 选项C：<input ng-model="data.radio" type="radio" name="choice" value="C">
-                <textarea name="" ng-model="data.choiceC" cols="50" rows="1"></textarea><br>
+                <textarea ng-model="data.choiceC" cols="50" rows="1"></textarea><br>
                 选项D：<input ng-model="data.radio" type="radio" name="choice" value="D">
-                <textarea name="" ng-model="data.choiceD" cols="50" rows="1"></textarea><br>
+                <textarea ng-model="data.choiceD" cols="50" rows="1"></textarea><br>
             </div>
             <div ng-show="data.type == 'check'">
                 选项A：<input type="checkbox" name="choice" value="A">
-                <textarea name="" cols="50" rows="1"></textarea><br>
+                <textarea cols="50" ng-model="data.choiceA" rows="1"></textarea><br>
                 选项B：<input type="checkbox" name="choice" value="B">
-                <textarea name="" cols="50" rows="1"></textarea><br>
+                <textarea ng-model="data.choiceB" cols="50" rows="1"></textarea><br>
                 选项C：<input type="checkbox" name="choice" value="C">
-                <textarea name="" cols="50" rows="1"></textarea><br>
+                <textarea ng-model="data.choiceC" cols="50" rows="1"></textarea><br>
                 选项D：<input type="checkbox" name="choice" value="D">
-                <textarea name="" cols="50" rows="1"></textarea><br>
+                <textarea ng-model="data.choiceD" cols="50" rows="1"></textarea><br>
             </div>
             <div ng-show="data.type == 'question'">
-                答案：<textarea name="" id="" cols="55" rows="3"></textarea>
+                题目答案：<textarea ng-model="data.anser" name="anser" id="" cols="55" rows="3"></textarea>
             </div>
             <hr>
             <div>

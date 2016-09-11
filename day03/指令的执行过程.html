@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>指令的执行过程</title>
+    <style>
+        table{
+            width:300px;
+            border-collapse: collapse;
+        }
+        td{
+            border:1px solid #ccc;
+        }
+    </style>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script src="../frameworks/angular-1.4.0/angular-sanitize.min.js"></script>
+    <script>
+        var app = angular.module("app",["ngSanitize"]);
+        app.controller("oneCtrl",function ($scope) {
+            $scope.num1 = 111;
+            $scope.num2 = 111;
+        });
+        //自定义指令
+        app.directive("firstDt",function () {
+            return {
+                restrict:"E",
+                scope:{
+
+                },  //完全隔离
+                template:"!<ng-transclude></ng-transclude>!",
+                transclude:true,
+                //将指令中原有的内容清空(自己的理解是复制了一份)，然后再将内容插入到模板当中
+                compile:function (tElement,tAttributes) {
+                    alert("compile");
+                    console.log("compile");
+                    console.log(tElement);
+                    //返回链接函数
+                    return {
+                        pre:function preLink(scope, element, attributes, controller) {
+                            alert("preLink");
+                            console.log("preLink");
+                            console.log(element);
+                        },
+                        post:function  postLink(scope, element, attributes, controller) {
+                            alert("postLink");
+                            //执行postLink的时候模板内容才会显示出来，
+                            console.log("postLink");
+                            console.log(element);
+                        }
+                    }
+                },
+                controller:function ($scope, $element, $attrs, $transclude) {
+                    alert("controller");
+                    console.log("controller");
+                    console.log($element);
+                }
+            };
+        });
+        //1.alert("compile");-->2.alert("controller");-->3.alert("preLink");-->4.alert("postLink");
+    </script>
+</head>
+<body ng-controller="oneCtrl">
+    <first-dt>
+        即将有一个表格出现
+        <table>
+            <tbody>
+            <tr>
+                <td>学号</td>
+                <td>姓名</td>
+                <td>班级</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </first-dt>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义指令</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script src="../frameworks/angular-1.4.0/angular-sanitize.min.js"></script>
+    <script>
+        //创建模块
+        var app = angular.module("app",["ngSanitize"]);
+        //控制器
+        app.controller("oneCtrl",function ($scope) {
+            $scope.msg = "自定义指令";
+        });
+        //自定义指令
+        app.directive("firstDt",function () {
+            return {
+                //restrict:"A",   //只显示作为属性的指令
+                //restrict:"E",   //只显示作为标签元素的指令
+                restrict:"AE",  //都显示
+                //template:"<h2>hello world {{msg}}</h2><input type='text' ng-model='msg'><hr>"
+
+                templateUrl:"data/directive_tab.html"
+            };
+        });
+
+    </script>
+</head>
+<body>
+<div ng-controller="oneCtrl">
+    <h2>-----自定义指令内容-----</h2>
+    作为属性attribute的指令：<div first-dt></div>
+    作为标签元素element的指令：<first-dt></first-dt>
+    控制器里面的的访问：{{msg}}
+</div>
+<hr>
+
+控制器的外部访问：{{msg}}
+<first-dt></first-dt>
+
+
+</body>
+</html>
