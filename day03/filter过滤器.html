@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>filter过滤器</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",function ($scope) {
+            $scope.person=[{
+                name:"Terry",
+                country:"England"
+            },{
+                name:"Jack",
+                country:"America"
+            },{
+                name:"zhangsan",
+                country:"China"
+            }];
+        });
+        //输入过滤器可以通过一个管道字符（|）和一个过滤器添加到指令中，该过滤器后跟一个冒号和一个模型名称。
+        // filter 过滤器从数组中选择一个子集：
+    </script>
+</head>
+<body>
+    <div ng-controller="oneCtrl">
+        <p>输入过滤</p>
+        <input type="text" ng-model="str">
+        <ul>
+            <!--filter后面的表达式用双引号引起来的就是直接输出，没有引起来的就是变量-->
+            <li ng-repeat="x in person | filter:str | orderBy:'country'">
+                {{(x.name| uppercase)+"--"+x.country}}
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>

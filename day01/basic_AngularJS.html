@@ -43,7 +43,9 @@
     </script>
 </head>
 <body>
-<h1 ng-controller="oneCtrl">{{obj.msg}}</h1>
+<h1 ng-controller="oneCtrl">{{obj.msg}}<br>
+    双向绑定：<input type="text" ng-model="obj.msg">
+</h1>
 
 <div ng-controller="threeCtrl">
     <table width="400px" border="1px" cellspacing="0">

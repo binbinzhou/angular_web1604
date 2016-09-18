@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-repeat下拉框</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",function ($scope) {
+            $scope.sites = [{
+                site:"新浪",
+                url:"www.xinlang.com"
+            },{
+                site:"优酷",
+                url:"www.youku.com"
+            },{
+                site:"网易",
+                url:"www.wangyi.com"
+            },{
+                site:"搜狐",
+                url:"www.souhu.com"
+            }];
+        });
+
+    </script>
+</head>
+<body>
+<div ng-controller="oneCtrl">
+    <p>选择网站:</p>
+    <select name="" ng-model="selectedSite">
+        <option value="{{name.url}}" ng-repeat="name in sites">{{name.site}}</option>
+    </select>
+    <h1>你选择的是：{{selectedSite}}</h1>
+    <p>该实例演示了使用 ng-repeat 指令来创建下拉列表，选中的值是一个字符串。</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-show</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        //创建模块，也叫初始化模块
+        var app = angular.module("app",[]);
+        //创建控制器
+        app.controller("oneCtrl",function ($scope) {
+            //all变量在这里也可以不用写
+        });
+
+    </script>
+</head>
+<body ng-controller="oneCtrl">
+    显示 HTML: <input type="checkbox" ng-model="all">
+    <div ng-show="all">
+        <h1>Welcome</h1>
+        <p>Welcome to my home.</p>
+    </div>
+</body>
+</html>

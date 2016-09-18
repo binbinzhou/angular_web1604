@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>过滤器</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",["$scope","$filter","uppercaseFirstAndLastFilter",
+            function ($scope,$filter,uppercaseFirstAndLastFilter) {
+                //console.log($scope);
+                $scope.msg = "hello";
+                //调用过滤器1,使用$filter来获取
+                var fun =  $filter("uppercaseFirstAndLast");
+                var result = fun("goodmorning");
+                console.log(result);
+                //调用过滤器2
+                var result2 = uppercaseFirstAndLastFilter("angularjs");
+                console.log(result2);
+
+        }]);
+        app.filter("uppercaseFirstAndLast",function(){
+            return function(input){
+                var firstChar = input.charAt(0).toUpperCase();
+                var lastChar = input.charAt(input.length-1).toUpperCase();
+                var centerChar = input.substr(1,input.length-2);    //substr的第一个参数是开始位置，第二个参数是返回字符的个数
+                return firstChar+centerChar+lastChar;
+            }
+        });
+        app.filter("uppercaseIndex",function(){
+            return function(input,index){
+                if(index>=0 && index<input.length){
+                    var beforeStr = input.substring(0,index);   //substring的第一个参数是开始位置，第二个参数是结束位置，但不包括结束位置本身
+                    var centerStr = input.charAt(index).toUpperCase();
+                    var after = input.substring(index+1);
+                    return beforeStr+centerStr+after;
+                }
+                return input;
+            }
+        });
+    </script>
+</head>
+<body ng-controller="oneCtrl">
+    msg原样：{{msg}}<br>
+    msg过滤成大写：{{msg | uppercase}}<br>
+    msg过滤第一个和最后一个大写：{{msg | uppercaseFirstAndLast}}<br>
+    msg过滤索引为index的字母的大写：{{msg | uppercaseIndex : 3 }}
+</body>
+</html>

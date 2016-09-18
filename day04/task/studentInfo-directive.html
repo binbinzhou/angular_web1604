@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>studentInfo-directive</title>
+    <script src="../../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",function ($scope) {
+            $scope.students = [{
+                "id":1001,
+                "name":"Terry",
+                "clazz":"一年一班",
+                "age":13,
+                "gender":"男"
+            },{
+                "id":1002,
+                "name":"Marry",
+                "clazz":"二年二班",
+                "age":15,
+                "gender":"女"
+            },{
+                "id":1003,
+                "name":"Jack",
+                "clazz":"三年三班",
+                "age":14,
+                "gender":"男"
+            },{
+                "id":1004,
+                "name":"Tom",
+                "clazz":"四年四班",
+                "age":16,
+                "gender":"男"
+            }];
+        });
+        app.directive("stuTbls",function(){
+            return {
+                restrict:"E",
+                transclude:true,
+                templateUrl:"data/stus.html",
+                compile:function (tElement,tAttributes) {
+                    return {
+                        //因为执行postLink的时候模板内容才会显示出来，所以对DOM节点的操作在post函数里面
+                        post: function  postLink(scope, element, attrs) {
+                            element.find("tbody").on("mouseover", function (event) {
+                                if (event.target.nodeName == "TD") {
+                                    //console.log(angular.element(event.target));
+                                    angular.element(event.target).parent().css("background", "#ccc");
+                                }
+                                ;
+                            });
+                            element.find("tbody").on("mouseout", function (event) {
+                                if (event.target.nodeName == "TD") {
+                                    //console.log(angular.element(event.target));
+                                    angular.element(event.target).parent().css("background", "");
+                                }
+                                ;
+                            });
+                        }
+                    }
+                }
+            };
+        });
+    </script>
+</head>
+<body ng-controller="oneCtrl">
+学号查询：<input type="text" ng-model="stus.id">
+姓名查询：<input type="text" ng-model="stus.name"><br><br>
+年龄查询：<input type="text" ng-model="stus.age">
+性别查询：<input type="text" ng-model="stus.gender">
+<stu-tbls>
+    <h3>这里的的文字是原有的内容</h3>
+
+
+</stu-tbls>
+
+</body>
+</html>

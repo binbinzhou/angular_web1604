@@ -1,0 +1,25 @@
+<style>
+    table{ border-collapse: collapse; width: 600px; text-align: center;}
+    table th,table td{border: 1px solid #2a6496;}
+</style>
+<div ng-transclude></div>
+<table>
+    <thead>
+    <tr>
+        <th>学号</th>
+        <th>姓名</th>
+        <th>班级</th>
+        <th>年龄</th>
+        <th>性别</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="stu in students | filter : stus">
+        <td>{{stu.id}}</td>
+        <td>{{stu.name}}</td>
+        <td>{{stu.clazz}}</td>
+        <td>{{stu.age}}</td>
+        <td>{{stu.gender}}</td>
+    </tr>
+    </tbody>
+</table>

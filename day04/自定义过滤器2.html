@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义过滤器2</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",["$scope","$filter","uppercaseIndexFilter",function ($scope,$filter,uppercaseIndexFilter) {
+            $scope.input = "angularjs";
+            var result = uppercaseIndexFilter("javascript",5);
+            console.log(result);
+        }]);
+
+        app.filter("uppercaseIndex",function () {
+            return function (input,index) {
+                console.log(arguments);
+                if(index >=0 && index<input.length) {
+                    var beforeChar = input.substring(0, index);
+                    var centerChar = input.charAt(index).toUpperCase();
+                    var afterChar = input.substring(index + 1);
+                    return beforeChar + centerChar + afterChar;
+                }
+                return input;
+            };
+        });
+    </script>
+
+</head>
+<body ng-controller="oneCtrl">
+任意输入字符串：<input type="text" ng-model="input"><br>
+显示原值：{{input}}<br>
+过滤后指定索引的字母大写的值：{{input | uppercaseIndex :3}}
+<hr>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>currency与number过滤器</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",["$scope","$filter",function ($scope,$filter) {
+            $scope.quantity = 12;
+            $scope.prices = 2.5;
+            $scope.money = 123456789;
+        }]);
+    </script>
+</head>
+<body>
+<div ng-controller="oneCtrl">
+    数量：<input type="text" ng-model="quantity">
+    价格：<input type="text" ng-model="prices"><br>
+    总价：{{(quantity*prices) | currency : "￥"}}
+    <hr>
+    number过滤：{{money | number : 4}};
+    <!--number后面还可用冒号追加参数，表示数字后面的小数以几位来算，默认不写，-->
+</div>
+
+</body>
+</html>

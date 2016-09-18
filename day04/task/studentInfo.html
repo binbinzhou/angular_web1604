@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>studentInfo</title>
+    <style>
+        table{ border-collapse: collapse; width: 600px; text-align: center;}
+        table th,table td{border: 1px solid #2a6496;}
+    </style>
+    <script src="../../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",["$scope","$filter",function ($scope,$filter) {
+            $scope.students = [{
+                "id":1001,
+                "name":"Terry",
+                "clazz":"一年一班",
+                "age":13,
+                "gender":"男"
+            },{
+                "id":1002,
+                "name":"Marry",
+                "clazz":"二年二班",
+                "age":15,
+                "gender":"女"
+            },{
+                "id":1003,
+                "name":"Jack",
+                "clazz":"三年三班",
+                "age":14,
+                "gender":"男"
+            },{
+                "id":1004,
+                "name":"Tom",
+                "clazz":"四年四班",
+                "age":16,
+                "gender":"男"
+            }];
+            $scope.stus = {
+
+            };
+            console.log($scope.students);
+        }]);
+    </script>
+</head>
+<body>
+<div ng-controller="oneCtrl">
+    学号查询：<input type="text" ng-model="stus.id">
+    姓名查询：<input type="text" ng-model="stus.name"><br><br>
+    年龄查询：<input type="text" ng-model="stus.age">
+    性别查询：<input type="text" ng-model="stus.gender">
+    <select ng-model="selectedStu" ng-options="y.name for (x,y) in students">
+    </select><input type="text">
+    {{selectedStu}}
+    <table>
+        <thead>
+        <tr>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>班级</th>
+            <th>年龄</th>
+            <th>性别</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="stu in students | filter : stus">
+            <td>{{stu.id}}</td>
+            <td>{{stu.name}}</td>
+            <td>{{stu.clazz}}</td>
+            <td>{{stu.age}}</td>
+            <td>{{stu.gender}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

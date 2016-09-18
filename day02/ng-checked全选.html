@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-checked</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",function ($scope) {
+
+        });
+
+    </script>
+</head>
+<body ng-controller="oneCtrl">
+    <p>My cars:</p>
+    <input type="checkbox" ng-model="checkAll"> Check all<br><br>
+    <input type="checkbox" ng-checked="checkAll">Volvo<br>
+    <input type="checkbox" ng-checked="checkAll">Ford<br>
+    <input type="checkbox" ng-checked="checkAll">Mercedes
+    <p>点击 "Check all" 选择所有的车。</p>
+</body>
+</html>

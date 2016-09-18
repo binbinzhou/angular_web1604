@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>currency过滤器</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",function ($scope) {
+            $scope.quantity = 2;
+            $scope.prices = 5.5;
+        });
+        //currency 过滤器将数字格式化为货币格式：
+    </script>
+</head>
+<body>
+    <div ng-controller="oneCtrl">
+        数量：<input type="number" ng-model="quantity"> &nbsp;
+        价格：<input type="number" ng-model="prices">
+        <p>总价(未加过滤器)：{{(quantity*prices)}}</p>
+        <p>总价(添加currency过滤器)：{{(quantity*prices) | currency}}</p>
+
+    </div>
+
+</body>
+</html>

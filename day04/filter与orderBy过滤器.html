@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>filter与orderBy过滤器</title>
+    <style>
+        table{ border-collapse: collapse; width: 600px; text-align: center;}
+        table th,table td{border: 1px solid #2a6496;}
+    </style>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",["$scope","$filter",function ($scope,$filter) {
+            $scope.arr1 = ["hello","terry","java","javascript"];
+            $scope.arr2 = [{
+                "id":1001,
+                "name":"Terry",
+                "age":13,
+                "score":80
+            },{
+                "id":1002,
+                "name":"Marry",
+                "age":15,
+                "score":75
+            },{
+                "id":1003,
+                "name":"Jack",
+                "age":14,
+                "score":90
+            }];
+            /*
+            //用法是 |filter ：fun1,每遍历一次执行一次这个函数
+            $scope.fun1 = function(value,index){
+                console.log(value,index);
+                if(value.score>76){
+                    return true;
+                }
+                return false;
+            };*/
+        }]);
+    </script>
+</head>
+<body>
+<div ng-controller="oneCtrl">
+    arr1原值：{{arr1}}<br>
+    arr1用filter过滤之后：
+    <ul>
+        <li ng-repeat="item in arr1 | filter:'terry'">{{item}}</li>
+    </ul>
+    <hr>
+    学生姓名：<input type="text" ng-model="stus.name">
+    学生成绩：<input type="text" ng-model="stus.score">
+    <table>
+        <thead>
+        <tr>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>成绩</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="stu in arr2 | filter : stus | orderBy : '+score'">
+            <!--多个过滤器用管道符号分割，orderBy: '+score'表示将成绩升序排列，-号表示降序-->
+            <td>{{stu.id}}</td>
+            <td>{{stu.name}}</td>
+            <td>{{stu.age}}</td>
+            <td>{{stu.score}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

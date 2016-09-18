@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-options下拉框选中的是一个对象</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",function ($scope) {
+            $scope.phones = [{
+                name:"iphone7",
+                color:"黑色优雅",
+                prices:"￥6500"
+            },{
+                name:"小米5",
+                color:"白色高贵",
+                prices:"￥2500"
+            },{
+                name:"华为P8",
+                color:"土豪金",
+                prices:"￥3000"
+            },{
+                name:"魅族5",
+                color:"黑色高端",
+                prices:"￥2800"
+            }];
+        });
+        //使用对象作为数据源, x 为键(key), y 为值(value):
+        //你选择的值为在 key-value 对中的 value。value 在 key-value 对中也可以是个对象：
+       // 在下拉菜单也可以不使用 key-value 对中的 key , 直接使用对象的属性：
+    </script>
+</head>
+<body>
+<div ng-controller="oneCtrl">
+    <p>选择一部手机:</p>
+    <select name="" id="" ng-model="selectedPhone" ng-options="y.name for (x,y) in phones"></select>
+    <p>你选择的是: {{selectedPhone.name}}</p>
+    <p>颜色为: {{selectedPhone.color}}</p>
+    <p>价格为: {{selectedPhone.prices}}</p>
+
+    <p>该实例演示了使用 ng-options  指令来创建下拉列表，选中的值是一个对象。</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-mouseover</title>
+    <style>
+        div{
+            width: 120px;
+            height:100px;
+            background: #ccc;
+            cursor: pointer;
+        }
+    </style>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",function ($scope) {
+            $scope.count = 0;
+        });
+        
+    </script>
+</head>
+<body ng-controller="oneCtrl">
+
+<div ng-mouseover="count = count + 1">鼠标移动到我这!</div>
+
+<h1>{{count}}</h1>
+
+<p>该实例在鼠标移动到 DIV 元素时，计算变量 "count" 会自动加 1。</p>
+
+</body>
+</html>

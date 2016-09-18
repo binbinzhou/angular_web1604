@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义过滤器</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",["$scope","$filter","uppercaseFirstAndLastFilter",function ($scope,$filter,uppercaseFirstAndLastFilter) {
+            $scope.input = "hello angularjs";
+            //调用方法一：直接字控制器里面调用过滤器
+            //书写方式1
+            //var fun = $filter("uppercaseFirstAndLast");
+            //var result = fun("javascript");
+            //书写方式2
+            var result = $filter("uppercaseFirstAndLast")("javascript");
+            console.log(result);
+            //调用方法二：
+            var result2 = uppercaseFirstAndLastFilter("angularjs");
+            console.log(result2);
+        }]);
+        app.filter("uppercaseFirstAndLast",function () {
+            return function (input) {
+                var firstChar = input.charAt(0).toUpperCase();
+                var centerChar = input.substr(1,input.length-2);
+                var lastChar = input.charAt(input.length-1).toUpperCase();
+                return firstChar+centerChar+lastChar;
+            }
+        });
+    </script>
+
+</head>
+<body ng-controller="oneCtrl">
+    任意输入字符串：<input type="text" ng-model="input"><br>
+    显示原值：{{input}}<br>
+    过滤后首字母和尾字母大写的值：{{input | uppercaseFirstAndLast}}
+    <hr>
+</body>
+</html>
