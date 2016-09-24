@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>factory与service服务</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",function ($scope,StudentService1,StudentService2) {
+            var students = StudentService1.getAllStus();
+            console.log(students);
+            //添加学生
+            StudentService1.addStu("张三");
+            //再次打印
+            var students = StudentService1.getAllStus();
+            console.log(students);
+            console.log("--------------------------------------------");
+            var students = StudentService2.getAllStus();
+            console.log(students);
+            //添加学生
+            StudentService2.addStu("李四");
+            //再次打印
+            var students = StudentService2.getAllStus();
+            console.log(students);
+
+
+        });
+        //创建factory服务 工厂函数模式
+        app.factory("StudentService1",function () {
+            return {
+                stus:["Terry","Jack","Marry","Tony"],
+                getAllStus:function () {
+                    return this.stus;
+                },
+                addStu:function (name) {
+                    this.stus.push(name);
+                }
+            }
+        });
+
+        //创建service服务   构造函数模式
+        app.service("StudentService2",function () {
+            this.stus = ["Terry","Jack","Marry","Tony"];
+            this.getAllStus = function () {
+                return this.stus;
+            };
+            this.addStu = function (name) {
+                this.stus.push(name);
+            };
+        });
+
+
+    </script>
+
+</head>
+<body>
+<div ng-controller="oneCtrl"></div>
+</body>
+</html>

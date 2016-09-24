@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>angular函数2</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",function ($scope) {
+            $scope.msg = "hello angular";
+        });
+        var obj1 = {};
+        var obj2 = {
+            id:1001,
+            name:"Terry"
+        };
+        var obj3 = {
+            id:1001,
+            name:"Terry"
+        };
+        var obj4 = {
+            id:1003,
+            age:12
+        };
+        var arr = ["hello","terry","java","javascript"];
+        //copy函数，把对象2中的属性复制到对象1中
+        console.log(obj1);
+        angular.copy(obj2,obj1);    //第一个参数是原对象，第二个是目的地
+        console.log(obj1);
+
+        //merge函数，把对象3中的属性与对象4的属性合并，
+        //angular.merge(obj3,obj4);    //参数与copy翻转，第一个参数是目的地，第二个是原对象
+
+        //equals函数  判断两个对象中的属性值是否相等，只要属性值相等就返回true，不会比较内存地址，
+        var result1 = obj2 == obj3;
+        console.log(result1);    //false     因为在javascript中对象比较的是内存地址，即使两个对象的属性值是一样的，他们也是不相等
+
+        var result2 = angular.equals(obj2,obj3);
+        console.log(result2);   //true      在angular里面只需要值相等就返回true
+
+        var result3 = NaN == NaN ;
+        console.log(result3);   //在javascript中NaN与谁都不相等，
+
+        var result4 = angular.equals(NaN,NaN);
+        console.log(result4);   //true
+
+        //extend继承函数，让一个对象继承另一个对象的属性,
+        angular.extend(obj4,obj3);  //让对象4继承对象3中的属性，第一个参数是目的地，第二个参数是原对象
+        console.log(obj4);
+
+        //forEach遍历函数
+        angular.forEach(arr,function (item,index,arr) {
+            console.log(index+"--"+item);
+        });
+
+
+
+
+
+    </script>
+</head>
+<body ng-controller="oneCtrl">
+</body>
+</html>

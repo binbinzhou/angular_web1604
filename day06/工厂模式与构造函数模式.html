@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>工厂模式与构造函数模式</title>
+    <script>
+        window.onload = function () {
+            //工厂模式
+            function StuFactory(id,name,age){
+                return {
+                    id:id,
+                    name:name,
+                    age:age,
+                    sayName:function(){
+                        alert(this.name);
+                    }
+                };
+            }
+            var stu1 = StuFactory(1001,"Terry",18);
+            var stu2 = StuFactory(1002,"Tom",19);
+            stu1.sayName();
+            stu2.sayName();
+            console.log(stu1.sayName==stu2.sayName);    //false
+            //工厂模式弊端：对象不能细分，且两个实例访问的方法是不相等的，也就是两个方法存放的内存地址是不一样的
+
+            //构造函数模式
+            var sayName = function () {
+                alert(this.name);
+            };
+            function Student(id,name,age){
+                this.id = id;
+                this.name = name;
+                this.age = age;
+                this.sayName = sayName;
+            }
+            var stu3 = new Student(1003,"Jack",20);
+            var stu4 = new Student(1004,"Mack",21);
+            stu3.sayName();
+            stu4.sayName();
+            console.log(stu3.sayName==stu4.sayName);    //方法放在狗仔函数里面就是false，放在外面就是true
+            console.log(stu3);
+
+        };
+    </script>
+</head>
+<body>
+
+
+</body>
+</html>

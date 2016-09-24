@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>provider服务</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",function ($scope,UserService3) {
+            //console.log(UserService3);
+            //第一次查询
+            var result =  UserService3.getAllStus();
+            console.log(result);
+            //添加之后在再次查询
+            UserService3.addStu("王五");
+            var result =  UserService3.getAllStus();
+            console.log(result);
+        });
+
+        //provider  复杂的服务，常用来控制多个元素同时变化，比如地址
+        app.provider("UserService3",function () {
+            this.url = "原始url";
+            this.setUrl = function (url) {
+                this.url = url;
+            };
+            this.$get = function () {
+                var self = this;
+                //这里的UserService3其实就是这个返回的对象，
+                return {
+                    stus:["Terry","Jack","Marry","Tony"],
+                    getAllStus:function () {
+                        console.log(self.url);
+                        //console.log(this);
+                        return this.stus;
+                    },
+                    addStu:function (name) {
+                        this.stus.push(name);
+                    }
+                };
+            }
+        });
+        //UserService3Provider则是创建的整个服务
+        //配置
+        app.config(function (UserService3Provider) {
+           UserService3Provider.setUrl("http://127.0.0.1/service");
+        });
+
+    </script>
+
+</head>
+<body>
+<div ng-controller="oneCtrl"></div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>value与constant常量服务</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",function ($scope,copyright,baseUrl) {
+            console.log("copyright：",copyright);
+
+            console.log("baseUrl：",baseUrl);
+
+        });
+
+        //创建常量服务，value与constant
+        app.value("copyright","江西理工大学南昌校区版权信息");
+
+        app.constant("baseUrl","http://127.0.0.1:80/services");
+    </script>
+
+</head>
+<body>
+<div ng-controller="oneCtrl"></div>
+</body>
+</html>

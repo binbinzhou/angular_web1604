@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义服务获取数据-底层API</title>
+    <style>
+        table{ border-collapse: collapse; width: 600px; text-align: center;}
+        table th,table td{border: 1px solid #2a6496;}
+    </style>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",function ($scope,firstUser) {
+            //回调函数
+            var handler = function (result) {
+                $scope.users = result;
+            };
+            firstUser.getAllUser(handler);
+        });
+        //自定义服务1，利用底层API    $http
+        //自定义服务里面也可以注入，想要用什么就注入什么，不想用的时候是不存在的
+        app.factory("firstUser",function ($http) {
+            return {
+                getAllUser:function (handler) {
+                    $http({
+                        method:"GET",
+                        url:"data/user.json",
+                        params:{
+                            id:10010
+                        },
+                        data:{
+                            name:"binbin"
+                        },
+                        responseType:"json",
+                        cache:true,
+                        headers:{
+                            "content-type":"text/angularjs"
+                        }
+                    }).then(function (result) { //then函数里面可以放一个函数也可以放两个函数，第一个为获取成功后的函数，第二个为失败
+                        //如果是通过then这个函数来获取值的话，必须还要在result再调用一下data，因为返回值result是一个大对象，大对象里面包含data
+                        //回调函数的执行
+                        handler(result.data);
+                    },function (result) {
+                        console.log("error：",result);
+                    });
+                }
+            };
+        });
+    </script>
+</head>
+<body>
+<table ng-controller="oneCtrl">
+    <thead>
+    <tr>
+        <th>学号</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+        <th>成绩</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="user in users">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.gender}}</td>
+        <td>{{user.age}}</td>
+        <td>{{user.score}}</td>
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>

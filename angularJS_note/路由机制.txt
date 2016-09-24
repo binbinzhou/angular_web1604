@@ -1,0 +1,17 @@
+1.引入angular文件及angular路由文件：
+     <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+     <script src="../frameworks/angular-1.4.0/angular-route.min.js"></script>
+2.将ngRoute注入模块当中：
+      angular.module('app', ['ngRoute']);
+3.将路由写在配置阶段app.config()中：
+    $routeProvider注入config回调函数中
+       app.config(function ($routeProvider) {
+                  $routeProvider.when("/Student",{
+                      templateUrl:"tpl/students.html",
+                      controller:"stuCtrl"
+                  }).when("/Teacher",{
+                      templateUrl:"tpl/teachers.html",
+                      controller:"teaCtrl"
+                  });
+              });
+4.

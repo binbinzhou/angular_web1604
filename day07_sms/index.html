@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>信息管理系统</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script src="../frameworks/angular-1.4.0/angular-route.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/stu.js"></script>
+    <script src="js/tea.js"></script>
+</head>
+<body ng-controller="mainCtrl">
+<div class="header">
+    <h1>信息管理系统</h1>
+</div>
+<div>
+    <div class="left">
+        <ul>
+            <li><a href="#/Student">学生信息</a></li>
+            <li><a href="#/Teacher">教师信息</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <div ng-view></div>
+    </div>
+</div>
+</body>
+</html>

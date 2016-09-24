@@ -1,0 +1,45 @@
+*{
+    margin:0;
+    padding:0;
+}
+a{
+    text-decoration: none;
+    color: #000;
+    display: block;
+}
+.header{
+    height:100px;
+    background-color: #6CA5C4;
+    color: #fff;
+}
+.left{
+    float: left;
+    width:180px;
+    height: 500px;
+    border-right:2px solid black;
+
+}
+.left ul li{
+    width:120px;
+    text-align: center;
+    margin: 10px auto;
+    list-style-type: none;
+    line-height: 30px;
+    background-color: #B4CAD6;
+    cursor: pointer;
+}
+.right{
+    margin-left: 200px;
+}
+.right h3{
+    line-height: 40px;
+}
+table.stuTbl,table.teaTbl{
+    width:80%;
+    border-collapse:collapse;
+    margin:10px 0;
+}
+table th,table td{
+    border:1px solid #ccc;
+    text-align: center;
+}

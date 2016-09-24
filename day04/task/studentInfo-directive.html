@@ -41,20 +41,18 @@
                 compile:function (tElement,tAttributes) {
                     return {
                         //因为执行postLink的时候模板内容才会显示出来，所以对DOM节点的操作在post函数里面
-                        post: function  postLink(scope, element, attrs) {
+                        post: function postLink(scope, element, attrs) {
                             element.find("tbody").on("mouseover", function (event) {
                                 if (event.target.nodeName == "TD") {
                                     //console.log(angular.element(event.target));
                                     angular.element(event.target).parent().css("background", "#ccc");
                                 }
-                                ;
                             });
                             element.find("tbody").on("mouseout", function (event) {
                                 if (event.target.nodeName == "TD") {
                                     //console.log(angular.element(event.target));
                                     angular.element(event.target).parent().css("background", "");
                                 }
-                                ;
                             });
                         }
                     }

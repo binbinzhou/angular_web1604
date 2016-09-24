@@ -1,0 +1,36 @@
+<h3>{{name}}</h3>
+<hr>
+<div>
+    姓名：<input type="text" ng-model="stus.name">
+    年龄：<input type="text" ng-model="stus.age">
+    性别：<select ng-model="stus.gender">
+                <option value="male">男</option>
+                <option value="female">女</option>
+</select>
+    <table class="stuTbl">
+        <thead>
+        <tr>
+            <th>选择</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>成绩</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="student in students | filter :stus">
+            <td><input type="checkbox" value="{{student.id}}"></td>
+            <td>{{student.name}}</td>
+            <td>{{student.age}}</td>
+            <td>{{student.gender == "male"?"男":"女"}}</td>
+            <td>{{student.score}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <button ng-click="add()">添加</button>
+        <button>修改</button>
+        <button>删除</button>
+    </div>
+</div>

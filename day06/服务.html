@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>构造函数服务</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",function ($scope,UserService1,UserService2,UserService3,copyright,baseUrl) {
+            //第一次查询
+           var result =  UserService1.getAllUsers();
+            console.log(result);
+            //添加之后在再次查询
+            UserService1.addUser("中国人");
+            var result =  UserService1.getAllUsers();
+            console.log(result);
+            console.log("---------------");
+            //构造函数模式结果显示
+            var result =  UserService2.getAllUsers();
+            console.log(result);
+            console.log("---------------");
+            console.log(copyright);
+            console.log(baseUrl);
+            console.log("----------provider----------");
+
+            //第一次查询
+            var result =  UserService3.getAllUsers();
+            console.log(result);
+            //添加之后在再次查询
+            UserService3.addUser("韩国人");
+            var result =  UserService3.getAllUsers();
+            console.log(result);
+
+
+
+        });
+        //工厂函数模式factory
+        app.factory("UserService1",function () {
+            return {
+                users:["terry","larry"],
+                getAllUsers:function () {
+                    return this.users;
+                },
+                addUser:function (name) {
+                    this.users.push(name);
+                }
+            }
+        });
+        //构造函数模式services
+        app.service("UserService2",function () {
+            this.users = ["jack","tom"];
+            this.getAllUsers = function () {
+                return this.users;
+            };
+            this.addUser = function (name) {
+                this.users.push(name);
+            };
+        });
+        //常量服务  Value
+        app.value("copyright","杰普软件有限公司版权信息");
+        //在体系内部的，可以同时在配置阶段和运行阶段执行，比自己定义变量更正宗点，更体系
+        app.constant("baseUrl","http://127.0.0.1:80/services");
+
+        //provider  复杂的服务
+        app.provider("UserService3",function () {
+            this.$get = function () {
+                return {
+                    users:["terry","larry"],
+                    getAllUsers:function () {
+                        return this.users;
+                    },
+                    addUser:function (name) {
+                        this.users.push(name);
+                    }
+                };
+            };
+        });
+    </script>
+
+</head>
+<body ng-controller="oneCtrl">
+</body>
+</html>

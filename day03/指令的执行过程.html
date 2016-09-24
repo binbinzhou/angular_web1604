@@ -30,7 +30,7 @@
                 template:"!<ng-transclude></ng-transclude>!",
                 transclude:true,
                 //将指令中原有的内容清空(自己的理解是复制了一份)，然后再将内容插入到模板当中
-                compile:function (tElement,tAttributes) {
+                compile:function compile(tElement,tAttributes) {
                     alert("compile");
                     console.log("compile");
                     console.log(tElement);
@@ -57,6 +57,7 @@
             };
         });
         //1.alert("compile");-->2.alert("controller");-->3.alert("preLink");-->4.alert("postLink");
+        //一般写function compile，里面只写post:function  postLink(){}
     </script>
 </head>
 <body ng-controller="oneCtrl">

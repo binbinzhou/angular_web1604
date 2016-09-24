@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>angular函数</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",function ($scope) {
+            $scope.msg = "hello angular";
+        });
+        //手动启动angular模块 app,等文档加载完之后执行
+        window.onload = function () {
+            angular.bootstrap(document,["app"]);
+        };
+
+        var a = 1;
+        function  foo(a) {
+            alert(this.a+":"+a);
+        }
+        var obj = {
+            a:3
+        };
+        /*在没有加第二个a的时候
+        //foo();      //1     由windows调用的，取值为1
+        //foo.call(obj);  //3
+        */
+        //函数bind    将指定对象绑定到函数的this值上
+        var fun = angular.bind(obj,foo,3);
+        fun();  //3:3
+    </script>
+</head>
+<body ng-controller="oneCtrl">
+    msg：{{msg}}
+</body>
+</html>

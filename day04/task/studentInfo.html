@@ -37,7 +37,7 @@
                 "gender":"男"
             }];
             $scope.stus = {
-
+                //默认值可以不写
             };
             console.log($scope.students);
         }]);
@@ -49,9 +49,6 @@
     姓名查询：<input type="text" ng-model="stus.name"><br><br>
     年龄查询：<input type="text" ng-model="stus.age">
     性别查询：<input type="text" ng-model="stus.gender">
-    <select ng-model="selectedStu" ng-options="y.name for (x,y) in students">
-    </select><input type="text">
-    {{selectedStu}}
     <table>
         <thead>
         <tr>

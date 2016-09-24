@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>函数</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",function () {
+
+        });
+        //
+        var a=1;
+        function  foo() {
+            var a= 2;
+            alert(this.a);
+        }
+        var obj = {
+            a:3
+        };
+        //foo();
+        //foo.call(obj);
+        var fn = angular.bind(obj,foo);
+        fn();
+    </script>
+
+</head>
+<body ng-controller="oneCtrl">
+</body>
+</html>

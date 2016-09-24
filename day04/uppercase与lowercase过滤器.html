@@ -6,14 +6,13 @@
     <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
     <script>
         var app = angular.module("app",[]);
-        app.controller("oneCtrl",function ($scope,lowercaseFilter) {
+        app.controller("oneCtrl",["$scope","$filter",function ($scope,$filter) {
             $scope.msg1 = "goodmorning";
             $scope.msg2 = "JAVASCRIPT";
             //在控制器中使用系统过滤器，需要在$scope后面写过滤器名Filter！！！
-            $scope.msg3 = lowercaseFilter("HELLO WORLD");
-            console.log($scope.msg3);
-
-        });
+            $scope.result = $filter("lowercase")("HELLO WORLD");
+            console.log($scope.result);
+        }]);
     </script>
 </head>
 <body>
@@ -26,7 +25,7 @@
     lowercase过滤器：{{msg2 | lowercase}}
     <hr>
     <h3>在控制器和服务中使用系统过滤器：</h3>
-    msg3：{{msg3}}
+    result：{{result}}
 </div>
 
 </body>

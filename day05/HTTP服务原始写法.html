@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>HTTP服务原始写法</title>
+    <style>
+        table{ border-collapse: collapse; width: 600px; text-align: center;}
+        table th,table td{border: 1px solid #2a6496;}
+    </style>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",function ($scope,$http) {
+            $http({
+                method:"GET",
+                url:"data/user.json",
+                params:{
+                    name:"binbin"
+                },
+                //params参数一般放在地址栏
+                data:{
+                    id:2001
+                },
+                //get方式传值的时候data参数是传递不过去的
+                //post方式的时候两者都可用
+                responseType:"json",
+                cache:true,
+                headers:{
+                    "content-type":"text/angularjs"
+                }
+            }).then(function (result) {
+                //console.log("success:",result.data);
+                $scope.users = result.data;
+            },function (result) {
+                console.log("error:",result);
+            });
+            //如果是通过then这个函数来获取值的话，必须还要在result再调用一下data，因为返回值result是一个大对象，大对象里面包含data
+            /*.success(function(data){
+                console.log(data);
+            }).error(function(){
+                console.log("出错了"); //没有参数
+            });*/
+
+        });
+        app.controller("twoCtrl",function ($scope,$http) {
+            $http({
+                method:"GET",
+                url:"data/user.json",
+                params:{
+                    name:"binbin"
+                },
+                //params参数一般放在地址栏
+                data:{
+                    id:2001
+                },
+                //get方式传值的时候data参数是传递不过去的
+                //post方式的时候两者都可用
+                responseType:"json",
+                cache:true,
+                headers:{
+                    "content-type":"text/angularjs"
+                }
+            }).then(function (result) {
+                //console.log("success:",result.data);
+                $scope.users = result.data; //将返回的数据绑定在$scope中，下面就可以用了
+            },function (result) {
+                console.log("error:",result.data);
+            });
+        });
+    </script>
+
+</head>
+<body>
+<table ng-controller="oneCtrl">
+    <thead>
+    <tr>
+        <th>学号</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+        <th>成绩</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="user in users">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.gender}}</td>
+        <td>{{user.age}}</td>
+        <td>{{user.score}}</td>
+    </tr>
+    </tbody>
+</table>
+
+<dl ng-controller="twoCtrl">
+    <dt>学生成绩排行榜</dt>
+    <dd ng-repeat="user in users | orderBy : '-score'">{{$index+1+":"+user.name+user.score}}</dd>
+</dl>
+
+</body>
+</html>

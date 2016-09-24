@@ -2,33 +2,28 @@ currency：
 currency允许我们设置自己的货币符号，默认情况下会采用客户端所处区域的货币符号。
 可以这样使用：{{ 3600 | currency: "$￥"}}
 返回结果为$￥123.00
-online code点击预览
 
 number：
 number过滤器将数字格式化成文本，它的参数是可选的，用来控制小数点后的截取位数
 如果传入的是一个非数字字符，会返回空字符串
 可以这样使用：{{ 3600 | number:2}}
 返回结果为：3,600.00
-online code点击预览
 
 lowercase：
 lowercase将字符串转换为小写
 可以这样使用：{{ "HEllo" | lowercase}}
 返回结果为：hello
-online code点击预览
 
 uppercase：
 uppercase将字符串转换为大写
 可以这样使用：{{ "HEllo" | uppercase}}
 返回结果为：HELLO
-online code点击预览
 
 json：
 json过滤器可以将一个JSON或者JavaScript对象转换成字符串。
 这个过滤器对调试相当有用
 可以这样使用：{{ {"name":"dreamapple","language":"AngularJS"} | json}}
 返回结果为：{ "name": "dreamapple", "language": "AngularJS" }
-online code点击预览
 
 date：
 date过滤器将日期过滤成你想要的格式，这个实在是很好的过滤器。
@@ -38,3 +33,15 @@ date过滤器将日期过滤成你想要的格式，这个实在是很好的过�
 {{ today | date: "yyyy - mm - dd HH:mm::ss"}}
 结果为：2015 - 18 - 13 20:18::38
 [online code](2015 - 18 - 13 20:18::38)
+
+limitTo：
+创建一个新的数组或者一个字符串只包含指定数量的元素。第一个参数为长度limit，第二个参数为begin开始索引位置
+$scope.arr = [1,2,3,4,5,6,7];
+{{arr | limitTo : 4 : 3}}
+
+filter：
+从数组中选择条目的一个子集,并返回新数组。{{ filter_expression | filter : expression }}
+ng-repeat="item in arr1 | filter:'terry'"
+
+orderBy：
+组合过滤，参数reverse，是否反转

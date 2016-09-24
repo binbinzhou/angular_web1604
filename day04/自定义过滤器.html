@@ -19,13 +19,14 @@
             var result2 = uppercaseFirstAndLastFilter("angularjs");
             console.log(result2);
         }]);
+        //创建过滤器的函数是工厂模式的函数
         app.filter("uppercaseFirstAndLast",function () {
             return function (input) {
                 var firstChar = input.charAt(0).toUpperCase();
                 var centerChar = input.substr(1,input.length-2);
                 var lastChar = input.charAt(input.length-1).toUpperCase();
                 return firstChar+centerChar+lastChar;
-            }
+            };
         });
     </script>
 

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>路由机制</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script src="../frameworks/angular-1.4.0/angular-route.min.js"></script>
+    <script>
+        var app = angular.module("app",["ngRoute"]);
+        app.controller("mainCtrl",function () {
+            
+        });
+        //学生局部页面的控制器
+        app.controller("stuCtrl",function ($scope,$route,$routeParams) {
+            $scope.name = "学生信息管理页面";
+            console.log($route);
+            console.log($routeParams);
+        });
+        //教师局部页面的控制器
+        app.controller("teaCtrl",function ($scope) {
+            $scope.name = "教师信息管理页面";
+        });
+        //课程局部页面的控制器
+        app.controller("couCtrl",function ($scope) {
+            $scope.name = "课程信息管理页面";
+        });
+
+        //课程章节局部页面的控制器
+        app.controller("chapterCtrl",function ($scope,$route,$routeParams) {
+            $scope.name = "课程章节";
+            console.log($route);
+            console.log($routeParams);
+        });
+
+        //配置
+        app.config(function ($routeProvider) {
+            $routeProvider.when("/Student",{
+                templateUrl:"tpl/students.html",
+                controller:"stuCtrl"
+            }).when("/Teacher",{
+                templateUrl:"tpl/teachers.html",
+                controller:"teaCtrl"
+            }).when("/Course",{
+                templateUrl:"tpl/courses.html",
+                controller:"couCtrl"
+            }).when("/Course/:name/Ch01/:page",{
+                templateUrl:"tpl/courses.html",
+                controller:"chapterCtrl"
+            });
+        });
+    </script>
+</head>
+<body ng-controller="mainCtrl">
+    <a href="#/Student">学生页面</a>|
+    <a href="#/Teacher">教师页面</a>|
+    <a href="#/Course?name=java&page=55">课程页面</a>
+    <a href="#/Course/java/Ch01/55">课程章节</a>
+    <hr>
+    <!--代表将路由页面插入到主页面-->
+    <div ng-view>
+
+    </div>
+</body>
+</html>

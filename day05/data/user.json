@@ -1,0 +1,34 @@
+[{
+  "id":1001,
+  "name":"larry",
+  "age":19,
+  "gender":"男",
+  "score":80
+},
+  {
+    "id":1002,
+    "name":"Terry",
+    "age":13,
+    "gender":"男",
+    "score":75
+  },
+  {
+    "id":1003,
+    "name":"Marry",
+    "age":18,
+    "gender":"女",
+    "score":85
+  },
+  {
+    "id":1004,
+    "name":"Jack",
+    "age":15,
+    "gender":"男",
+    "score":65
+  },{
+  "id":1005,
+  "name":"Mick",
+  "age":16,
+  "gender":"男",
+  "score":70
+}]

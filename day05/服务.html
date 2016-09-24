@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>服务</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        //只有在调用的时候控制器才会初始化，才会执行里面的代码，且会多次执行
+        app.controller("oneCtrl",function ($scope,$controller,$location) {
+            console.log("------oneCtrl------");
+            //手动调用另外一个控制器,初始化另外一个控制器
+            $controller("twoCtrl");
+            console.log("------$location------");
+            //获取到绝对路径
+            console.log($location.absUrl());
+            console.log($location.host());  //访问主机本机ip
+            console.log($location.protocol());  //协议
+            console.log($location.port());      //端口号
+        });
+        app.controller("twoCtrl",function () {
+            console.log("------twoCtrl------");
+        });
+    </script>
+
+</head>
+<body>
+    <div ng-controller="oneCtrl"></div>
+</body>
+</html>

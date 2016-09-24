@@ -14,7 +14,7 @@
 
         app.filter("uppercaseIndex",function () {
             return function (input,index) {
-                console.log(arguments);
+                //console.log(arguments);
                 if(index >=0 && index<input.length) {
                     var beforeChar = input.substring(0, index);
                     var centerChar = input.charAt(index).toUpperCase();

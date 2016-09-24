@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义服务获取数据-简写方式GET</title>
+    <style>
+        table{ border-collapse: collapse; width: 600px; text-align: center;}
+        table th,table td{border: 1px solid #2a6496;}
+    </style>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("twoCtrl",function ($scope,secondUser) {
+            //调用服务方法获取用户信息
+            secondUser.getAllUser(function (data) {
+                $scope.users=data;
+            });
+        });
+        app.controller("threeCtrl",function ($scope,secondUser) {
+            //调用服务方法获取用户信息
+            secondUser.getAllUser(function (data) {
+                $scope.users=data;
+            });
+        });
+        app.factory("secondUser",function ($http) {
+            return {
+                //获取所有学生信息，参数为回调函数
+                getAllUser:function (handler) {
+                    $http.get("data/user.json").success(function (data) {
+                        //console.log(data);
+                        handler(data);
+                    }).error(function (data) {
+                        //console.log(data);
+                        handler(data);
+                    });
+                }
+            }
+        });
+
+    </script>
+</head>
+<body>
+<table ng-controller="twoCtrl">
+    <thead>
+    <tr>
+        <th>学号</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+        <th>成绩</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="user in users">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.gender}}</td>
+        <td>{{user.age}}</td>
+        <td>{{user.score}}</td>
+    </tr>
+    </tbody>
+</table>
+
+<dl ng-controller="threeCtrl">
+    <dt>学生成绩排行榜</dt>
+    <dd ng-repeat="user in users | orderBy : '-score'">{{$index+1+":"+user.name+user.score}}</dd>
+</dl>
+
+
+</body>
+</html>

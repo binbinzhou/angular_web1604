@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>jsonp跨域获取数据</title>
+    <style>
+        table{ border-collapse: collapse; width: 600px; text-align: center;}
+        table th,table td{border: 1px solid #2a6496;}
+    </style>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("twoCtrl",function ($scope,oneUser) {
+            //调用服务方法获取用户信息
+            oneUser.getAllUser(function (data) {
+                console.log(data);
+                //将数据与stus绑定，然后在html代码中ng-repeat
+                $scope.stus=data;
+            });
+        });
+
+        //创建服务  工厂函数模式  jsonp方式获取
+        app.factory("oneUser",function ($http) {
+            return {
+                getAllUser : function (handler) {
+                    $http.jsonp("data/stus.js?callback=JSON_CALLBACK").success(function (data) {
+                        //console.log("success",data);
+                        handler(data);
+                    });
+                }
+            };
+        });
+
+    </script>
+</head>
+<body>
+<table ng-controller="twoCtrl">
+    <thead>
+    <tr>
+        <th>学号</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+        <th>成绩</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="user in stus">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.gender}}</td>
+        <td>{{user.age}}</td>
+        <td>{{user.score}}</td>
+    </tr>
+    </tbody>
+</table>
+
+<!--<dl ng-controller="threeCtrl">-->
+    <!--<dt>学生成绩排行榜</dt>-->
+    <!--<dd ng-repeat="user in users | orderBy : '-score'">{{$index+1+":"+user.name+user.score}}</dd>-->
+<!--</dl>-->
+
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+系统服务：
+$controller	用于初始化控制器，用于一个控制器中初始化另一个控制器
+$filter		用于获取过滤器
+            注入过滤器$filter
+                var result = $filter("uppercaseFirstAndLast")("javascript");
+                console.log(result);
+            注入过滤器名字，并且后面追加首字母大写的Filter。uppercaseFirstAndLastFilter
+                var result2 = uppercaseFirstAndLastFilter("angularjs");
+                console.log(result2);
+$document	document对应jqLite对象
+			jQuery lite = jqLite 是jQuerymini版本
+			
+			jquery.js
+			angular.js
+				angular.element() => jQuery=>$
+				var $dom = angular.element(dom)
+				$dom.on();可以使用事件代理
+
+			angular.js
+				angular.element()
+				var $dom = angular.element(dom)
+				$dom.on();
+				//在没有jQuery库的支持下，$dom.on()是不能使用事件代理的
+$location 	封装了与url相关的功能
+			$location.absUrl
+			$location.url
+			path
+			search
+			...
+$http
+			$http(config);
+			config对象的参数
+				method
+				url
+				params
+				data
+				headers
+				cache
+			底层$http()方法
+				.then(function(result){     //获取到的result是一个大对象，大对象里面有data
+					result.data
+				},function(result){
+					result.statusText
+				});
+				.sucess(function(data){
+
+				});
+				.error();
+				属性
+			$http.get()方法
+			    getAllUser:function (handler) {
+			        $http.get("data/user.json").success(function (data) {
+                            handler(data);
+                      }).error(function (data) {
+                            handler(data);
+                      });
+                 }
+                 //调用服务方法获取用户信息
+                  secondUser.getAllUser(function (data) {
+                       $scope.users=data;
+                  });
+$rootScope
+			根作用域
+			每个应用只有一个根作用域，其他作用域直接或者间接继承根作用域（使用原型链来继承）
+
+$scope当前作用域
+		angular.controller("oneCtrl",function($scope){
+			$rootScope.root = "1001";
+			$scope.one = "1002";
+		});
+		angular.controller("twoCtrl",function($scope){
+			$scope.two = "1003";
+		});
+
+		<div ng-controller="oneCtrl">
+			<div ng-controller="twoCtrl">
+				{{two}}
+				{{one}}
+				{{root}}
+			</div>
+		</div>
+		twoCtrl $scope
+			->oneCtrl $scope
+			->$rootScope
+
+				html
+			head 	body
+			div.left 	div.right
+		div.top div.bottom
+自定义服务：
+    factory：工厂函数模式
+        //使用factory方法
+        app.factory('remoteData',function(){
+            var data = {name:'n',value:'v'};
+            return data;
+        });
+    service：构造函数模式
+        //使用service方法
+        app.service('remoteData',function(){
+            this.name = 'n';
+            this.value = 'v';
+        });
+    provider:
+
+    常量服务：
+        value
+        constant
+
