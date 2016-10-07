@@ -30,7 +30,7 @@
             return {
                 getAllUser : function () {
                     $http.jsonp("data/users.js?callback=loadStudentData").success(function (data) {
-                        console.log("success",data);
+                        //console.log("success",data);
                     });
                 }
             };

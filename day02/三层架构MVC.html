@@ -21,7 +21,7 @@
         });
         app.controller("twoCtrl",function ($scope,studentService) {
             $scope.stus = studentService.getStudent();
-        })
+        });
 
         //创建学生管理的服务,封装起来可以供多个控制器使用
         app.service("studentService",function () {

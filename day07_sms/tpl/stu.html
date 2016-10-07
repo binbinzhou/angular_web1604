@@ -20,7 +20,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="student in students | filter :stus">
-            <td><input type="checkbox" value="{{student.id}}"></td>
+            <td><input type="checkbox" value="{{student.id}}" ng-checked="checkAll"></td>
             <td>{{student.name}}</td>
             <td>{{student.age}}</td>
             <td>{{student.gender == "male"?"男":"女"}}</td>
@@ -28,7 +28,8 @@
         </tr>
         </tbody>
     </table>
-    <div>
+    <div class="control">
+        <input type="checkbox" ng-model="checkAll">&nbsp;
         <button ng-click="add()">添加</button>
         <button>修改</button>
         <button>删除</button>

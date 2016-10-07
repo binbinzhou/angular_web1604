@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>判断多选是否被选中</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("mainCtrl",function ($scope) {
+            $scope.tagcategories = [
+                {
+                    id: 1,
+                    name: 'Color',
+                    tags: [
+                        {
+                            id:1,
+                            name:'color1'
+                        },
+                        {
+                            id:2,
+                            name:'color2'
+                        },
+                        {
+                            id:3,
+                            name:'color3'
+                        },
+                        {
+                            id:4,
+                            name:'color4'
+                        }
+                    ]
+                },
+                {
+                    id:2,
+                    name:'Cat',
+                    tags:[
+                        {
+                            id:5,
+                            name:'cat1'
+                        },
+                        {
+                            id:6,
+                            name:'cat2'
+                        }
+                    ]
+                },
+                {
+                    id:3,
+                    name:'Scenario',
+                    tags:[
+                        {
+                            id:7,
+                            name:'Home'
+                        },
+                        {
+                            id:8,
+                            name:'Work'
+                        }
+                    ]
+                }
+            ];
+
+            $scope.selected = [];
+            $scope.selectedTags = [];
+
+            var updateSelected = function(action,id,name){
+                if(action == 'add' && $scope.selected.indexOf(id) == -1){
+                    $scope.selected.push(id);
+                    $scope.selectedTags.push(name);
+                }
+                if(action == 'remove' && $scope.selected.indexOf(id)!=-1){
+                    var idx = $scope.selected.indexOf(id);
+                    $scope.selected.splice(idx,1);
+                    $scope.selectedTags.splice(idx,1);
+                }
+            };
+
+            $scope.updateSelection = function($event, id){
+                var checkbox = $event.target;
+                //console.log(checkbox);
+                var action = (checkbox.checked?'add':'remove');
+                updateSelected(action,id,checkbox.name);
+            };
+
+            $scope.isSelected = function(id){
+                return $scope.selected.indexOf(id)>=0;
+            }
+        });
+    </script>
+</head>
+<body ng-controller="mainCtrl">
+<div>选项</div>
+<div>
+    <div>你已经选择:</div>
+    <span ng-repeat="selectedTag in selectedTags">
+        {{selectedTag}}&nbsp;
+    </span>
+    <hr>
+    <div>你选择的id和name分别是:</div>
+    <pre>{{selected|json}}</pre>
+    <pre>{{selectedTags|json}}</pre>
+    <hr>
+    <div ng-repeat="category in tagcategories">
+        <div>{{ category.name }}</div>
+        <div ng-repeat="tag in category.tags">
+            <div>
+                <input type="checkbox" id={{tag.id}} name="{{tag.name}}" ng-checked="isSelected(tag.id)" ng-click="updateSelection($event,tag.id)">
+                {{ tag.name }}
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>
+
+
+
+</body>
+</html>

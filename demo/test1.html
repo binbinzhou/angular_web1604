@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>测试一</title>
+    <script src="../frameworks/angular-1.4.0/angular.min.js"></script>
+    <script>
+        var app = angular.module("app",[]);
+        app.controller("oneCtrl",["$scope",function ($scope) {
+            $scope.msg = "hello";
+        }]);
+    </script>
+</head>
+<body ng-controller="oneCtrl">
+{{msg}}
+
+
+</body>
+</html>
